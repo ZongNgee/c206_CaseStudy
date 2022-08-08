@@ -72,7 +72,5 @@ public class Student{
 			return "Waiting list";
 		}
 	}
-
-	
 	
 }

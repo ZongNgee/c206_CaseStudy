@@ -5,12 +5,12 @@ public class CCA extends Category{
 	private String description;
 	private int classSize;
 	private String day;
-	private double time;
+	private String time;
 	private String venue;
 	private String instructor;
 	
 	
-	public CCA(String catName, String title, String description, int classSize, String day, double time, String venue,
+	public CCA(String catName, String title, String description, int classSize, String day, String time, String venue,
 			String instructor) {
 		super(catName);
 		this.title = title;
@@ -63,12 +63,12 @@ public class CCA extends Category{
 	}
 
 
-	public double getTime() {
+	public String getTime() {
 		return time;
 	}
 
 
-	public void setTime(double time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 

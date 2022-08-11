@@ -24,14 +24,6 @@ public class C206_CaseStudy {
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
 		//Maintaining parent accounts (add,view,delete)
 		ArrayList<Parent> parentList = new ArrayList<Parent>();
 		int option = 0;
@@ -43,21 +35,12 @@ public class C206_CaseStudy {
 
 	      if (option == 1) {
 	        // Add a new item
-	        C206_CaseStudy.setHeader("ADD");      
-	        C206_CaseStudy.setHeader("ITEM TYPES");
-	        System.out.println("1. Parent");
-	        
-	        int itemType = Helper.readInt("Enter option to select item type > ");
-
-	        if (itemType == 1) {
+	        C206_CaseStudy.setHeader("ADD");
 	          // Add student
 	          Parent parent = inputParent();
 	          C206_CaseStudy.addParent(parentList, parent);
 	          System.out.println("Parent added");
-
-	        } else {
-	          System.out.println("Student does not exist / Invalid input");
-	        }
+	       
 
 	      } else if (option == 2) {
 	        // View all items
@@ -65,18 +48,9 @@ public class C206_CaseStudy {
 
 	      } else if (option == 3) {
 	        // Delete Student
-	        C206_CaseStudy.setHeader("DELETE STUDENT");      
-	        C206_CaseStudy.setHeader("ITEM TYPES");
-	        System.out.println("1. STUDENT");
-	        
-	        int itemType = Helper.readInt("Enter option to select item type > ");
-
-	        if (itemType == 1) {
-	          // Delete Student
-	          //C206_CaseStudy.deleteStudent(parentList);
-	        } else {
-	          System.out.println("Invalid type");
-	        }
+	        C206_CaseStudy.setHeader("DELETE");      
+	          // Delete parent
+	        C206_CaseStudy.deleteAllParent(parentList);
 
 	      } else if (option == 4) {
 	        System.out.println("Bye!");
@@ -88,16 +62,6 @@ public class C206_CaseStudy {
 		//===================================================================
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -149,10 +113,6 @@ public class C206_CaseStudy {
 	}
 	
 	
-	
-	
-	
-	
 	// For maintaining parent accounts ==========================================================
 	
 	 public static void Parentmenu() {
@@ -187,7 +147,8 @@ public class C206_CaseStudy {
 		 String output = "";
 		 for (int i = 0; i < parentList.size(); i++) {
 
-		        output += String.format("%-15s %-15s %-15d %-15s %-15s %-15s %-15s\n",
+		        output += String.format("%-15s %-15s %-30s %-15d %-15s %-15s %-15s %-15s\n",
+		        	i+1,
 		        	parentList.get(i).getParentName(),
 			        parentList.get(i).getEmail(),
 			        parentList.get(i).getContactNo(),
@@ -200,16 +161,39 @@ public class C206_CaseStudy {
 		    }
 	 public static void viewAllParent(ArrayList<Parent> parentList) {
 	      C206_CaseStudy.setHeader("PARENT LIST");
-	      String output = String.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n", "Parent Name", "Email", "Contact Number", "student ID", "student Name", "student Class", "student Grade", "class Teacher", "contact Number");
+	      String output = String.format("%-15s %-15s %-30s %-15s %-15s %-15s %-15s %-15s\n","POSITION","Parent Name",
+	    		  "Email", "Contact Number", "Student ID",
+	    		  "Student Name", "Student Class", "Student Grade",
+	    		  "Class Teacher", "Contact Number");
 	      output += retrieveAllParent(parentList);
 	      System.out.println(output);
 	    }
-
-
 	 
-	 																									
-
-	
+	 public static void deleteAllParent(ArrayList<Parent> parentList) {
+		 String output = String.format("%-15s %-15s %-30s %-15s %-15s %-15s %-15s\n", "POSITION","Parent Name",
+				 "Email", "Contact Number", "Student ID", "Student Name",
+				 "Student Class", "Student Grade", "Class Teacher", "Contact Number");
+		 for (int i = 0; i < parentList.size(); i++) {
+		 output += String.format("%-15s %-15s %-30s %-15d %-15s %-15s %-15s %-15s\n",
+		        	i+1,
+		        	parentList.get(i).getParentName(),
+			        parentList.get(i).getEmail(),
+			        parentList.get(i).getContactNo(),
+		        	parentList.get(i).getStudentID(),
+		            parentList.get(i).getName(), 
+		            parentList.get(i).getS_Class(), 
+		            parentList.get(i).getTeacher());
+		 
+		 int delOption = Helper.readInt("Choose option to delete > ");
+		 if (delOption == (i+1)) {
+			 parentList.remove(i);
+	    	 System.out.println("Parent deleted");
+		 }else {
+			 System.out.println("Invalid option");
+		 }
+		 System.out.println(output);
+	     }
+	 }
 	//===========================================================================================
 
 }

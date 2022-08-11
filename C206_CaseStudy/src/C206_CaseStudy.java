@@ -1,11 +1,7 @@
 import java.util.ArrayList;
-
 public class C206_CaseStudy {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		
 		//================ For testing ==============================
 		ArrayList<Category> categoriesList = new ArrayList<Category>();
 
@@ -23,8 +19,87 @@ public class C206_CaseStudy {
 		
 		C206_CaseStudy.viewAllCCAs(ccaList);
 		//===========================================================
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//Maintaining parent accounts (add,view,delete)
+		ArrayList<Parent> parentList = new ArrayList<Parent>();
+		int option = 0;
 
+	    while (option != 4) {
+
+	      C206_CaseStudy.Parentmenu();
+	      option = Helper.readInt("Enter an option > ");
+
+	      if (option == 1) {
+	        // Add a new item
+	        C206_CaseStudy.setHeader("ADD");      
+	        C206_CaseStudy.setHeader("ITEM TYPES");
+	        System.out.println("1. Parent");
+	        
+	        int itemType = Helper.readInt("Enter option to select item type > ");
+
+	        if (itemType == 1) {
+	          // Add student
+	          Parent parent = inputParent();
+	          C206_CaseStudy.addParent(parentList, parent);
+	          System.out.println("Parent added");
+
+	        } else {
+	          System.out.println("Student does not exist / Invalid input");
+	        }
+
+	      } else if (option == 2) {
+	        // View all items
+	        C206_CaseStudy.viewAllParent(parentList);
+
+	      } else if (option == 3) {
+	        // Delete Student
+	        C206_CaseStudy.setHeader("DELETE STUDENT");      
+	        C206_CaseStudy.setHeader("ITEM TYPES");
+	        System.out.println("1. STUDENT");
+	        
+	        int itemType = Helper.readInt("Enter option to select item type > ");
+
+	        if (itemType == 1) {
+	          // Delete Student
+	          //C206_CaseStudy.deleteStudent(parentList);
+	        } else {
+	          System.out.println("Invalid type");
+	        }
+
+	      } else if (option == 4) {
+	        System.out.println("Bye!");
+	        
+	      } else {
+	        System.out.println("Invalid option");
+	      }
+	    }
+		//===================================================================
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public static void setHeader(String header) {
 		Helper.line(80, "-");
@@ -72,5 +147,69 @@ public class C206_CaseStudy {
 		System.out.println(output);
 		
 	}
+	
+	
+	
+	
+	
+	
+	// For maintaining parent accounts ==========================================================
+	
+	 public static void Parentmenu() {
+	      C206_CaseStudy.setHeader("Maintaining parent accounts");
+	      System.out.println("1. Add Parent");
+	      System.out.println("2. View Parent");
+	      System.out.println("3. Delete Parent");
+	      System.out.println("4. Quit");
+	      Helper.line(80, "-");
+	    }
+	 //add parent account
+	 public static Parent inputParent() {
+		 
+	     String studentID = Helper.readString("Enter your student ID > ");
+	     String student_Name = Helper.readString("Enter student Name > ");
+	     String student_Class =  Helper.readString("Enter student class > ");
+	     String teacher = Helper.readString("Enter classroom teacher > ");
+	     String name = Helper.readString("Enter parent name > ");
+	     String email = Helper.readString("Enter parent email > ");
+	     int contact = Helper.readInt("Enter your contact number > ");
+
+	     Parent Parent = new Parent(studentID, student_Name, student_Class, teacher, name, email, contact);
+	     return Parent;
+	      
+	    }
+	 public static void addParent(ArrayList<Parent> parentList, Parent parent) {
+	      
+	      parentList.add(parent);
+	    }
+	 //view parent account
+	 public static String retrieveAllParent(ArrayList<Parent> parentList) {
+		 String output = "";
+		 for (int i = 0; i < parentList.size(); i++) {
+
+		        output += String.format("%-15s %-15s %-15d %-15s %-15s %-15s %-15s\n",
+		        	parentList.get(i).getParentName(),
+			        parentList.get(i).getEmail(),
+			        parentList.get(i).getContactNo(),
+		        	parentList.get(i).getStudentID(),
+		            parentList.get(i).getName(), 
+		            parentList.get(i).getS_Class(), 
+		            parentList.get(i).getTeacher());
+		      }
+		      return output;
+		    }
+	 public static void viewAllParent(ArrayList<Parent> parentList) {
+	      C206_CaseStudy.setHeader("PARENT LIST");
+	      String output = String.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n", "Parent Name", "Email", "Contact Number", "student ID", "student Name", "student Class", "student Grade", "class Teacher", "contact Number");
+	      output += retrieveAllParent(parentList);
+	      System.out.println(output);
+	    }
+
+
+	 
+	 																									
+
+	
+	//===========================================================================================
 
 }

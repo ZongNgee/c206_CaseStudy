@@ -9,11 +9,13 @@ import org.junit.Test;
 public class C206_CaseStudyTest {
 	private Student st1;
 	private Student st2;
+
 	private CCA cca1;
 	private CCA cca2;
 	
 	private ArrayList<Student> studentList;
 	private ArrayList<CCA> ccaList;
+
 	
 	public C206_CaseStudyTest() {
 		super();
@@ -23,11 +25,13 @@ public class C206_CaseStudyTest {
 	public void setUp() throws Exception {
 		st1 = new Student("123456", "Peter", "C206", "Armstrong");
 		st2 = new Student("654321", "Tom", "C203", "Zen");
+
 		cca1 = new CCA("Performing Arts", "Dance", "Youths uniting as one to dance", 30, "Friday", "8:00PM", "Dance studio", "Mrs Woo Woo");
 		cca2 = new CCA("Uniform Group", "NPCC", "Uniting as one to help the country", 40, "Tuesday", "8:00PM", "Parade Square", "Mr Jung");
 		
 		studentList= new ArrayList<Student>();
 		ccaList = new ArrayList<CCA>();
+
 
 	}
 
@@ -55,6 +59,7 @@ public class C206_CaseStudyTest {
 	}
 	
 	@Test
+
 	public void testAddCCA() {
 		// Item list is not null, so that can add a new cca - boundary
 		assertNotNull("Check if there is valid CCA arraylist to add to", ccaList);
@@ -95,9 +100,11 @@ public class C206_CaseStudyTest {
 	
 		assertEquals("Test that viewAllStudent matches with the testOutput", testOutput, allStudent);
 
+
 	}
 	
 	@Test
+
 	public void testRetrieveAllCCADetails() {
 		// Test if cca list is not null but empty -boundary
 		assertNotNull("Test if there is valid CCA arraylist to retrieve item", ccaList);
@@ -132,6 +139,8 @@ public class C206_CaseStudyTest {
 	public void testDeleteCCA() {
 		assertNotNull("Test if there is valid CCA arraylist to delete from", ccaList);
 		C206_CaseStudy.deleteCCA(ccaList, cca1);
+
+
 	}
 	
 	@After

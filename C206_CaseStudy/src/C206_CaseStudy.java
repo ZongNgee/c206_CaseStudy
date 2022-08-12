@@ -37,7 +37,7 @@ public class C206_CaseStudy {
 
 	      if (option == 1) {
 	        // Add a new item
-	        C206_CaseStudy.setHeader("ADD");
+	        C206_CaseStudy.setHeader("ADD STUDENT");
 	          // Add student
 	          Student student = inputStudent();
 	          C206_CaseStudy.addStudent(studentList, student);
@@ -46,6 +46,7 @@ public class C206_CaseStudy {
 
 	      } else if (option == 2) {
 	        // View all items
+	    	C206_CaseStudy.setHeader("STUDENT LIST");	    	  
 	        C206_CaseStudy.viewAllStudent(studentList);
 
 	      } else if (option == 3) {
@@ -68,7 +69,7 @@ public class C206_CaseStudy {
 		
 		//Maintaining parent accounts (add,view,delete)
 		ArrayList<Parent> parentList = new ArrayList<Parent>();
-		int option = 0;
+//		int option = 0;
 
 	    while (option != 4) {
 
@@ -196,7 +197,7 @@ public class C206_CaseStudy {
 				      return output;
 				    }
 			 public static void viewAllStudent(ArrayList<Student> studentList) {
-			      C206_CaseStudy.setHeader("STUDENT LIST");
+			      
 			      String output = String.format("%-15s %-15s %-30s %-15s %-15s\n","POSITION",
 			    		  "Student ID","Student Name", "Student Class","Class Teacher");
 			      output += retrieveAllStudent(studentList);
@@ -204,15 +205,8 @@ public class C206_CaseStudy {
 			    }
 			 
 			 public static void deleteAllStudent(ArrayList<Student> studentList) {
-				 String output = String.format("%-15s %-15s %-30s %-15s %-15s\n", "POSITION",
-						 "Student ID", "Student Name","Student Class","Class Teacher");
+				 viewAllStudent(studentList);			
 				 for (int i = 0; i < studentList.size(); i++) {
-				 output += String.format("%-15s %-15s %-30s %-15s %-15s\n",
-				        	i+1,
-				        	studentList.get(i).getStudentID(),
-				        	studentList.get(i).getName(), 
-				        	studentList.get(i).getS_Class(), 
-				        	studentList.get(i).getTeacher());
 				 
 				 int delOption = Helper.readInt("Choose option to delete > ");
 				 if (delOption == (i+1)) {
@@ -221,8 +215,9 @@ public class C206_CaseStudy {
 				 }else {
 					 System.out.println("Invalid option");
 				 }
-				 System.out.println(output);
-			     }
+			     }				 
+				 viewAllStudent(studentList);			
+
 			 }
 			//===========================================================================================		
 		    

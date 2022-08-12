@@ -41,7 +41,7 @@ public class C206_CaseStudy {
 	          // Add student
 	          Student student = inputStudent();
 	          C206_CaseStudy.addStudent(studentList, student);
-	          System.out.println("Parent added");
+	          System.out.println("Student added");
 	       
 
 	      } else if (option == 2) {
@@ -68,7 +68,7 @@ public class C206_CaseStudy {
 		
 		//Maintaining parent accounts (add,view,delete)
 		ArrayList<Parent> parentList = new ArrayList<Parent>();
-//		int option = 0;
+		int option = 0;
 
 	    while (option != 4) {
 

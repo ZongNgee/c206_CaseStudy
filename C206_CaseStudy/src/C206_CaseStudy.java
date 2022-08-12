@@ -22,8 +22,51 @@ public class C206_CaseStudy {
 //		C206_CaseStudy.viewAllCCAs(ccaList);
 		// ===========================================================
 
-		// Maintaining parent accounts (add,view,delete)
-		ArrayList<Parent> parentList = new ArrayList<Parent>();
+
+		
+		//Maintaining student accounts (add,view,delete)
+		ArrayList<Student> studentList = new ArrayList<>();
+		int option = 0;
+
+	    while (option != 4) {
+
+	      C206_CaseStudy.Studentmenu();
+	      option = Helper.readInt("Enter an option > ");
+
+	      if (option == 1) {
+	        // Add a new item
+	        C206_CaseStudy.setHeader("ADD STUDENT");
+	          // Add student
+	          Student student = inputStudent();
+	          C206_CaseStudy.addStudent(studentList, student);
+	          System.out.println("Student added");
+	       
+
+	      } else if (option == 2) {
+	        // View all items
+	    	C206_CaseStudy.setHeader("STUDENT LIST");	    	  
+	        C206_CaseStudy.viewAllStudent(studentList);
+
+	      } else if (option == 3) {
+	        // Delete Student
+	        C206_CaseStudy.setHeader("DELETE");      
+	          // Delete parent
+	        C206_CaseStudy.deleteAllStudent(studentList);
+
+	      } else if (option == 4) {
+	        System.out.println("Bye!");
+	        
+	      } else {
+	        System.out.println("Invalid option");
+	      }
+	    }
+		//===================================================================
+		
+			
+		
+		
+		//Maintaining parent accounts (add,view,delete)
+
 		int option = 0;
 
 		while (option != 4) {
@@ -125,9 +168,76 @@ public class C206_CaseStudy {
 
 	}
 
-	// For maintaining parent accounts
-	// ==========================================================
+	// For maintaining Student accounts ==========================================================
+	
+			 public static void Studentmenu() {
+			      C206_CaseStudy.setHeader("Maintaining student accounts");
+			      System.out.println("1. Add Student");
+			      System.out.println("2. View Student");
+			      System.out.println("3. Delete Student");
+			      System.out.println("4. Quit");
+			      Helper.line(80, "-");
+			    }
+			 
+			 //add student account
+			 public static Student inputStudent() {
+				 
+			     String studentID = Helper.readString("Enter your student ID > ");
+			     String student_Name = Helper.readString("Enter student Name > ");
+			     String student_Class =  Helper.readString("Enter student class > ");
+			     String teacher = Helper.readString("Enter classroom teacher > ");
 
+
+			     Student student = new Student(studentID, student_Name, student_Class, teacher);
+			     return student;
+			      
+			    }
+			 public static void addStudent(ArrayList<Student> studentList, Student student) {
+			      
+			      studentList.add(student);
+			    }
+			 //view student account
+			 public static String retrieveAllStudent(ArrayList<Student> studentList) {
+				 String output = "";
+				 for (int i = 0; i < studentList.size(); i++) {
+
+				        output += String.format("%-15s %-15s %-30s %-15s %-15s\n",
+				        	i+1,
+				        	studentList.get(i).getStudentID(),
+				        	studentList.get(i).getName(), 
+				        	studentList.get(i).getS_Class(), 
+				        	studentList.get(i).getTeacher());
+				      }
+				      return output;
+				    }
+			 public static void viewAllStudent(ArrayList<Student> studentList) {
+			      
+			      String output = String.format("%-15s %-15s %-30s %-15s %-15s\n","POSITION",
+			    		  "Student ID","Student Name", "Student Class","Class Teacher");
+			      output += retrieveAllStudent(studentList);
+			      System.out.println(output);
+			    }
+			 
+			 public static void deleteAllStudent(ArrayList<Student> studentList) {
+				 viewAllStudent(studentList);			
+				 for (int i = 0; i < studentList.size(); i++) {
+				 
+				 int delOption = Helper.readInt("Choose option to delete > ");
+				 if (delOption == (i+1)) {
+					 studentList.remove(i);
+			    	 System.out.println("Student deleted");
+				 }else {
+					 System.out.println("Invalid option");
+				 }
+			     }				 
+				 viewAllStudent(studentList);			
+
+			 }
+			//===========================================================================================		
+		    
+	
+
+	// For maintaining Parent account==========================================================
 	public static void Parentmenu() {
 		C206_CaseStudy.setHeader("Maintaining parent accounts");
 		System.out.println("1. Add Parent");
@@ -202,8 +312,8 @@ public class C206_CaseStudy {
 	}
 	// ===========================================================================================
 
-	// For maintaining CCA categories
-	// ==========================================================
+	// For maintaining CCA categories==========================================================
+
 
 	public static void ccaCatMenu() {
 		C206_CaseStudy.setHeader("Maintaining CCA Categories");

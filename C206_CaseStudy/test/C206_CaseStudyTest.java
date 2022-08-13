@@ -292,11 +292,46 @@ public class C206_CaseStudyTest {
 
 	@Test
 	public void testDeleteCCA() {
+		// Test if cca list is not null -boundary
 		assertNotNull("Test if there is valid CCA arraylist to delete from", ccaList);
-//		C206_CaseStudy.deleteCCA(ccaList, cca1);
 
+		// Given an empty list, add 1 cca, and test if item has been added
+				ccaList.add(cca1);
+				assertEquals(1, ccaList.size());
+
+				// Remove the cca that was added from the list, and test if the list is
+				// empty - normal
+				C206_CaseStudy.deleteCCA(ccaList, 1);
+				assertTrue(ccaList.isEmpty());
+
+				// Check that removed cca does not exist in the list - normal
+				boolean exists = false;
+				for (CCA cca : ccaList) {
+					if (cca.equals(cca1))
+						exists = true;
+				}
+
+				assertFalse("Test that the deleted cca is not found in the list", exists);
+
+				// Given an empty list, add 1 category, and test if item has been added
+				ccaList.add(cca1);
+				ccaList.add(cca2);
+				assertEquals(2, ccaList.size());
+
+				// Remove the 1 of the cca that was added to the list, and test if the
+				// list size is 1 - normal
+				C206_CaseStudy.deleteCCA(ccaList, 2);
+				assertEquals(1, ccaList.size());
+
+				// Check that removed ccca does not exist in the list - normal
+				for (CCA cca : ccaList) {
+					if (cca.equals(cca2))
+						exists = true;
+				}
+
+				assertFalse("Test that the deleted cca is not found in the list", exists);
 	}
-
+ 
 	@Test
 	public void testDeleteCategory() {
 		// Test if category list is not null -boundary

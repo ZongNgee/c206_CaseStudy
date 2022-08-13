@@ -13,8 +13,12 @@ public class C206_CaseStudyTest {
 	private CCA cca1;
 	private CCA cca2;
 	
+	private Category ccaCat1;
+	private Category ccaCat2;
+	
 	private ArrayList<Student> studentList;
 	private ArrayList<CCA> ccaList;
+	private ArrayList<Category> ccaCatList;
 
 	
 	public C206_CaseStudyTest() {
@@ -26,11 +30,17 @@ public class C206_CaseStudyTest {
 		st1 = new Student("123456", "Peter", "C206", "Armstrong");
 		st2 = new Student("654321", "Tom", "C203", "Zen");
 
-		cca1 = new CCA("Performing Arts", "Dance", "Youths uniting as one to dance", 30, "Friday", "8:00PM", "Dance studio", "Mrs Woo Woo");
-		cca2 = new CCA("Uniform Group", "NPCC", "Uniting as one to help the country", 40, "Tuesday", "8:00PM", "Parade Square", "Mr Jung");
+		cca1 = new CCA("Uniform Group", "Red Cross", "Youths learning basic first aid", 20, "Friday", "3PM",
+				"Hall", "Mr Teng");
+		cca2 = new CCA("Perfoming Arts", "Dance", "Youths uniting as one to dance", 30, "Friday", "3.30PM",
+				"Dance Studio", "Mrs Woo Woo");
+		
+		ccaCat1 = new Category("Performing arts");
+		ccaCat2 = new Category("Uniform Groups");
 		
 		studentList= new ArrayList<Student>();
 		ccaList = new ArrayList<CCA>();
+		ccaCatList = new ArrayList<Category>();
 
 
 	}
@@ -75,6 +85,23 @@ public class C206_CaseStudyTest {
 		assertEquals("Check that cca arraylist size is 2", 2, ccaList.size());
 		assertSame("Check that cca is added", cca2, ccaList.get(1));
 	}
+	@Test
+	
+	public void testAddCCACategory() {
+		// Item list is not null, so that can add a new cca category - boundary
+		assertNotNull("Check if there is a valid CCA Category arraylist to add to", ccaCatList);
+		//Given an empty list, after adding 1 category, the size of the list is 1 - normal
+		//The category just added is as same as the first category of the list
+		C206_CaseStudy.addCategory(ccaCatList, ccaCat1);
+		assertEquals("Check that CCA category arraylist size is 1", 1, ccaCatList.size());
+		assertSame("Check that CCA category is added", ccaCat1, ccaCatList.get(0));
+		
+		//Add another category. test The size of the list is 2 -normal
+		//The item just added is as same as the second category of the list
+		C206_CaseStudy.addCategory(ccaCatList, ccaCat2);
+		assertEquals("Check that cca category arraylist size is 2", 2, ccaCatList.size());
+		assertSame("Check that category is added", ccaCat2, ccaCatList.get(1));
+	}
 	
 	@Test
 	public void testRetrieveAllStudent() {
@@ -106,7 +133,7 @@ public class C206_CaseStudyTest {
 	@Test
 
 	public void testRetrieveAllCCADetails() {
-		// Test if cca list is not null but empty -boundary
+		// Test if cca list is not null -boundary
 		assertNotNull("Test if there is valid CCA arraylist to retrieve item", ccaList);
 		
 		//test if the list of cca retrieved from the CaseStudy is empty - boundary
@@ -114,33 +141,139 @@ public class C206_CaseStudyTest {
 		String testOutput = "";
 		assertEquals("Check that viewAllCCAs is empty", testOutput, allCCAs);
 		
-		//Given an empty list, after adding 2 Student, test if the size of the list is 2 - normal
+		//Given an empty list, after adding 2 CCAs, test if the size of the list is 2 - normal
 		C206_CaseStudy.addCCA(ccaList, cca1);
 		C206_CaseStudy.addCCA(ccaList, cca2);
 		assertEquals("Test that CCA arraylist size is 2", 2, ccaList.size());
 		
-		//test if the expected output string same as the list of student retrieved from the CaseStudy	
+		//test if the expected output string same as the list of CCAs retrieved from the CaseStudy	
 		allCCAs= C206_CaseStudy.retrieveAllCCAs(ccaList);
-		testOutput = String.format("%-15s %-20s %-40s %-20s %-10s %-10s %-20s %-30s \n","1",
-				"Performing Arts", "Dance", "Youths uniting as one to dance", 30, "Friday", "8:00PM", "Dance studio", "Mrs Woo Woo");
-		testOutput += String.format("%-15s %-20s %-40s %-20s %-10s %-10s %-20s %-30s \n","2", 
-				"Uniform Group", "NPCC", "Uniting as one to help the country", 40, "Tuesday", "8:00PM", "Parade Square", "Mr Jung" );
+		testOutput = String.format("%-15s %-20s %-40s %-20d %-10s %-10s %-20s %-30s \n","1",
+				"Uniform Group", "Red Cross", "Youths learning basic first aid", 20, "Friday", "3PM","Hall", "Mr Teng");
+		
+		testOutput += String.format("%-15s %-20s %-40s %-20d %-10s %-10s %-20s %-30s \n","2", 
+				"Perfoming Arts", "Dance", "Youths uniting as one to dance", 30, "Friday", "3.30PM", "Dance Studio", "Mrs Woo Woo" );
 	
 		assertEquals("Test that viewAllCCAs matches with the testOutput", testOutput, allCCAs);
 
 	}
+	@Test
+	
+	public void testRetrieveAllCategoryDetails() {
+		// Test if category list is not null -boundary
+		assertNotNull("Test if there is valid CCA category arraylist to retrieve item", ccaCatList);
+		
+		//test if the list of categories retrieved from the CaseStudy is empty - boundary
+		String allCategories= C206_CaseStudy.retrieveAllCategories(ccaCatList);
+		String testOutput = "";
+		assertEquals("Check that viewAllCategories is empty", testOutput, allCategories);
+		
+		//Given an empty list, after adding 2 categories, test if the size of the list is 2 - normal
+		C206_CaseStudy.addCategory(ccaCatList, ccaCat1);
+		C206_CaseStudy.addCategory(ccaCatList, ccaCat2);
+		
+		assertEquals("Test that CCA category arraylist size is 2", 2, ccaCatList.size());
+		
+		//test if the expected output string same as the list of categories retrieved from the CaseStudy	
+		allCategories= C206_CaseStudy.retrieveAllCategories(ccaCatList);
+		testOutput = String.format("%-15s %-15s\n","1",
+				"Performing arts");
+		
+		testOutput += String.format("%-15s %-15s\n","2",
+				"Uniform Groups");
+		
+		assertEquals("Test that viewAllCCAs matches with the testOutput", testOutput, allCategories);
+		
+	}
 	
 	@Test
-	public void testDelete() {
+	public void testDeleteStudent() {
+		// Test if Student list is not null too see if got any value to delete
+		assertNotNull("Test if there is valid Student arraylist to delete", studentList);
 		
+		//One member added; one removed
+		C206_CaseStudy.addStudent(studentList, st1);		
+		assertEquals("Check that Student arraylist size is 1",1,studentList.size());
+		
+		C206_CaseStudy.deleteStudent(studentList,1);
+		assertTrue("Check that the Student arraylist is empty",studentList.isEmpty());
+		
+		boolean exists = false;
+		for (Student s:studentList) {
+			if(s.equals(st1)) {
+				exists = true;
+			}
+		}
+		
+		assertFalse("Test if the deleted student can't be delete again",exists);
+		
+		//Two members added; one removed
+		C206_CaseStudy.addStudent(studentList, st1);
+		C206_CaseStudy.addStudent(studentList, st2);		
+	    assertEquals("Check that Student arraylist size is 2",2, studentList.size());
+	    
+	    C206_CaseStudy.deleteStudent(studentList,2);	    
+	    assertEquals("Check that Student arraylist size is 1", 1, studentList.size());
+	    
+	    exists = false;
+		for (Student s:studentList) {
+			if(s.equals(st2)) {
+				exists = true;
+			}
+			assertFalse("Test if the deleted student can't be delete again", exists);
+		}
+
 	}
 	
 	@Test
 	public void testDeleteCCA() {
 		assertNotNull("Test if there is valid CCA arraylist to delete from", ccaList);
-		C206_CaseStudy.deleteCCA(ccaList, cca1);
+//		C206_CaseStudy.deleteCCA(ccaList, cca1);
 
 
+	}
+	
+	@Test 
+	public void testDeleteCategory() {
+		// Test if category list is not null -boundary
+		assertNotNull("Test if there is valid CCA category arraylist to delete items from", ccaCatList);
+		
+		// Given an empty list, add 1 category, and test if item has been added
+		ccaCatList.add(ccaCat1);
+		assertEquals(1, ccaCatList.size());
+		
+		// Remove the category that was added from the list, and test if the list is empty - normal
+		C206_CaseStudy.deleteCategory(ccaCatList,1);
+		assertTrue(ccaCatList.isEmpty());
+		
+		// Check that removed category does not exist in the list - normal
+		boolean exists = false;
+        for (Category category : ccaCatList) {
+             if (category.equals(ccaCat1))
+                  exists = true;
+        }
+
+        assertFalse("Test that the deleted category is not found in the list",exists);
+        
+	    // Given an empty list, add 1 category, and test if item has been added
+		ccaCatList.add(ccaCat1);
+		ccaCatList.add(ccaCat2);
+		assertEquals(2, ccaCatList.size());
+		
+		// Remove the 1 of the categories that was added to the list, and test if the list size is 1 - normal
+		C206_CaseStudy.deleteCategory(ccaCatList,2);
+		assertEquals(1, ccaCatList.size());
+		
+		// Check that removed category does not exist in the list - normal
+        for (Category category : ccaCatList) {
+             if (category.equals(ccaCat2))
+                  exists = true;
+        }
+
+        assertFalse("Test that the deleted category is not found in the list",exists);
+        
+        
+		
 	}
 	
 	@After

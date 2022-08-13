@@ -36,8 +36,8 @@ public class C206_CaseStudy {
 		coordinatorList.add(new Users("Mabel", "12345", "Coordinator"));
 
 		ArrayList<Users> adminList = new ArrayList<>();
-		coordinatorList.add(new Users("Michelle", "hello345", "Admin"));
-		coordinatorList.add(new Users("George", "34567", "Admin"));
+		adminList.add(new Users("Michelle", "hello345", "Admin"));
+		adminList.add(new Users("George", "34567", "Admin"));
 
 		// ===========================================================
 
@@ -81,7 +81,7 @@ public class C206_CaseStudy {
 				String password = Helper.readString("Enter your password > ");
 				Users enteredInfo = new Users(username, password, "Coordinator");
 
-				if (userAccExists(coordinatorList, enteredInfo)) {
+				if (coordinatorAccExists(coordinatorList, enteredInfo)) {
 					isLoggedIn = true;
 					System.out.println("Logged in successfully.\n");
 
@@ -113,7 +113,9 @@ public class C206_CaseStudy {
 							} else if (ccaOption == 3) {
 								C206_CaseStudy.setHeader("DELETE CCA");
 								// Delete parent
-								C206_CaseStudy.deleteCCA(ccaList);
+								viewAllCCAs(ccaList);
+								int delOption = Helper.readInt("Choose position to delete > ");
+								C206_CaseStudy.deleteCCA(ccaList, delOption);
 
 							} else if (ccaOption == 4) {
 								System.out.println("Bye!");
@@ -149,7 +151,9 @@ public class C206_CaseStudy {
 							} else if (ccaCatOption == 3) {
 								C206_CaseStudy.setHeader("DELETE CCA CATEGORY");
 								// Delete parent
-								C206_CaseStudy.deleteCategory(catList);
+								viewAllCategories(catList);
+								int delOption = Helper.readInt("Choose position to delete > ");
+								C206_CaseStudy.deleteCategory(catList, delOption);
 
 							} else if (ccaCatOption == 4) {
 								System.out.println("Bye!");
@@ -179,7 +183,7 @@ public class C206_CaseStudy {
 				String password = Helper.readString("Enter your password > ");
 				Users enteredInfo = new Users(username, password, "Admin");
 
-				if (userAccExists(coordinatorList, enteredInfo)) {
+				if (adminAccExists(adminList, enteredInfo)) {
 					isLoggedIn = true;
 					System.out.println("Logged in successfully.\n");
 
@@ -212,8 +216,9 @@ public class C206_CaseStudy {
 							} else if (studOption == 3) {
 								// Delete Student
 								C206_CaseStudy.setHeader("DELETE");
-								// Delete parent
-								C206_CaseStudy.deleteAllStudent(studentList);
+								viewAllStudent(studentList);
+								int delOption = Helper.readInt("Choose option to delete > ");
+								C206_CaseStudy.deleteStudent(studentList, delOption);
 
 							} else if (studOption == 4) {
 								System.out.println("Bye!");
@@ -282,9 +287,9 @@ public class C206_CaseStudy {
 	}
 
 	public static void setHeader(String header) {
-		Helper.line(80, "-");
+		Helper.line(160, "-");
 		System.out.println(header);
-		Helper.line(80, "-");
+		Helper.line(160, "-");
 	}
 
 	public static void loginMenu() {
@@ -293,34 +298,50 @@ public class C206_CaseStudy {
 		System.out.println("3. Login as a CCA Coordinator");
 		System.out.println("4. Login as an Admin");
 		System.out.println("5. Quit");
-		Helper.line(80, "-");
+		Helper.line(160, "-");
 	}
 
 	public static void coordinatorMenu() {
 		System.out.println("1. Maintain CCA");
 		System.out.println("2. Maintain CCA Categories");
 		System.out.println("3. Quit");
-		Helper.line(80, "-");
+		Helper.line(160, "-");
 	}
 
 	public static void adminMenu() {
 		System.out.println("1. Maintain Students");
 		System.out.println("2. Maintain Parents");
 		System.out.println("3. Quit");
-		Helper.line(80, "-");
+		Helper.line(160, "-");
 	}
 
-	public static boolean userAccExists(ArrayList<Users> coordinatorList, Users enteredAcc) {
+	public static boolean coordinatorAccExists(ArrayList<Users> coordinatorList, Users enteredAcc) {
 		boolean exists = false;
 
 		for (int i = 0; i < coordinatorList.size(); i++) {
 			Users coordinator = coordinatorList.get(i);
 
 			if (coordinator.getUsername().equals(enteredAcc.getUsername())
-					&& coordinator.getPassword().equals(enteredAcc.getPassword())) {
+					&& coordinator.getPassword().equals(enteredAcc.getPassword())
+					&& coordinator.getRole().equals("Coordinator")) {
 				exists = true;
 			}
 
+		}
+		return exists;
+	}
+	public static boolean adminAccExists(ArrayList<Users> adminList, Users enteredAcc) {
+		boolean exists = false;
+		
+		for (int i = 0; i < adminList.size(); i++) {
+			Users admin = adminList.get(i);
+			
+			if (admin.getUsername().equals(enteredAcc.getUsername())
+					&& admin.getPassword().equals(enteredAcc.getPassword())
+					&& admin.getRole().equals("Admin")) {
+				exists = true;
+			}
+			
 		}
 		return exists;
 	}
@@ -350,7 +371,7 @@ public class C206_CaseStudy {
 		System.out.println("2. View Student");
 		System.out.println("3. Delete Student");
 		System.out.println("4. Quit");
-		Helper.line(80, "-");
+		Helper.line(160, "-");
 	}
 
 	// add student account
@@ -394,10 +415,8 @@ public class C206_CaseStudy {
 		}
 	}
 
-	public static void deleteAllStudent(ArrayList<Student> studentList) {
-		viewAllStudent(studentList);
-
-		int delOption = Helper.readInt("Choose option to delete > ");
+	public static void deleteStudent(ArrayList<Student> studentList, int delOption) {
+		
 		if (delOption <= 0 || delOption > studentList.size()) {
 			System.out.println("Invalid option");
 		} else {
@@ -424,7 +443,7 @@ public class C206_CaseStudy {
 		System.out.println("2. View Parent");
 		System.out.println("3. Delete Parent");
 		System.out.println("4. Quit");
-		Helper.line(80, "-");
+		Helper.line(160, "-");
 	}
 
 	// add parent account
@@ -485,7 +504,7 @@ public class C206_CaseStudy {
 				if (delOption == (i + 1)) {
 					parentList.remove(i);
 					System.out.println("Parent deleted");
-					Helper.line(80, "-");
+					Helper.line(160, "-");
 					break;
 				}
 			}
@@ -504,7 +523,7 @@ public class C206_CaseStudy {
 		System.out.println("2. View CCA");
 		System.out.println("3. Delete CCA");
 		System.out.println("4. Quit");
-		Helper.line(80, "-");
+		Helper.line(160, "-");
 	}
 
 	// add cca details
@@ -557,10 +576,8 @@ public class C206_CaseStudy {
 	}
 
 	// delete CCA
-	public static void deleteCCA(ArrayList<CCA> ccaList) {
-		viewAllCCAs(ccaList);
+	public static void deleteCCA(ArrayList<CCA> ccaList, int delOption) {
 
-		int delOption = Helper.readInt("Choose position to delete > ");
 		if (delOption <= 0 || delOption > ccaList.size()) {
 			System.out.println("Invalid option");
 		} else {
@@ -569,7 +586,7 @@ public class C206_CaseStudy {
 				if (delOption == (i + 1)) {
 					ccaList.remove(i);
 					System.out.println("CCA deleted");
-					Helper.line(80, "-");
+					Helper.line(160, "-");
 					break;
 
 				}
@@ -589,7 +606,7 @@ public class C206_CaseStudy {
 		System.out.println("2. View Category");
 		System.out.println("3. Delete Category");
 		System.out.println("4. Quit");
-		Helper.line(80, "-");
+		Helper.line(160, "-");
 	}
 
 	// add cca category
@@ -631,10 +648,10 @@ public class C206_CaseStudy {
 	}
 
 	// delete category
-	public static void deleteCategory(ArrayList<Category> catList) {
-		viewAllCategories(catList);
+	public static void deleteCategory(ArrayList<Category> catList, int delOption) {
+		
 
-		int delOption = Helper.readInt("Choose position to delete > ");
+//		int delOption = Helper.readInt("Choose position to delete > ");
 		if (delOption <= 0 || delOption > catList.size()) {
 			System.out.println("Invalid option");
 		} else {
@@ -643,7 +660,7 @@ public class C206_CaseStudy {
 				if (delOption == (i + 1)) {
 					catList.remove(i);
 					System.out.println("Category deleted");
-					Helper.line(80, "-");
+					Helper.line(160, "-");
 					break;
 
 				}

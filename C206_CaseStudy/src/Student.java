@@ -13,7 +13,7 @@ public class Student{
 		this.name = name;
 		this.s_Class = s_Class;
 		this.teacher = teacher;
-		this.registrationID = 0;
+		this.registrationID = -1;
 		this.isRegistered = false;
 	}
 
@@ -73,5 +73,6 @@ public class Student{
 			return "Waiting list";
 		}
 	}
+	
 	
 }

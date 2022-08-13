@@ -37,6 +37,5 @@ public class Parent extends Student{
 		this.contactNo = contactNo;
 	}
 	
-	
 
 }
